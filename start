@@ -1,16 +1,16 @@
 #!/bin/bash
+docker network create psql-net
 
 docker build -t webserver .
 
 docker run -d \
   --name webserver \
-  -v $(pwd)/webserver/files:/app \
+  -v $(pwd)/files:/app \
   -p 9090:8080 webserver
 
 
 docker volume create psql-vol
 
-docker network create psql-net
 
 docker run -d \
   --name postgresql \
@@ -30,4 +30,4 @@ docker run -d \
   dpage/pgadmin4
 
 
-docker run -d --name postgresql-backup --network psql-net -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=postgres -v psql-vol:/var/lib/postgresql/data -p 5433:5432 postgres:13.8
+# docker run -d --name postgresql-backup --network psql-net -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=postgres -v psql-vol:/var/lib/postgresql/data -p 5433:5432 postgres:13.8
