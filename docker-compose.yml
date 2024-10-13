@@ -1,3 +1,4 @@
+version: "3.9"
 services:
   postgres:
     image: postgres:16
@@ -20,8 +21,14 @@ services:
     ports:
       - "27017:27017"
 
+  webserver:
+    build: 
+      context: ./webserver
+    container_name: webserver
+    ports:
+      - "9090:8080"
+    volumes:
+      - ./webserver/files:/app
+
 volumes:
-  postgres_data:
-    driver: local
   mongo_data:
-    driver: local

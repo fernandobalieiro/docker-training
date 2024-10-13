@@ -1,0 +1,26 @@
+#!/bin/bash
+
+docker run -d \
+  --name postgres \
+  -e POSTGRES_USER=test \
+  -e POSTGRES_PASSWORD=test \
+  -e POSTGRES_DB=test \
+  -v /tmp/postgres/data2:/var/lib/postgresql/data \
+  -v $(pwd)/quarkus-demo/src/main/resources/init.sql:/docker-entrypoint-initdb.d/create_tables.sql \
+  -p 5432:5432 \
+  postgres:16
+
+docker run -d \
+  --name mongodb \
+  -v mongo_data:/data/db \
+  -p 27017:27017 \
+  mongo:8.0.1
+
+pushd webserver
+docker build -t webserver .
+popd
+
+docker run -d \
+  --name webserver \
+  -v $(pwd)/webserver/files:/app \
+  -p 9090:8080 webserver
