@@ -1,0 +1,2 @@
+1. `docker build --build-arg SCRIPT_TO_RUN=script-2.py -t my_python_app .` -> pega num dockerfile, daqui sai uma imagem
+2. `docker run -e ENV_TO_CHECK=maria my_python_app` -> pega numa imagem, daqui sai um container
