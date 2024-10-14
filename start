@@ -9,25 +9,24 @@ docker run -d \
   -p 9090:8080 webserver
 
 
-docker volume create psql-vol
+# docker volume create psql-vol
 
 
-docker run -d \
-  --name postgresql \
-  --network psql-net \
-  -e POSTGRES_USER=postgres \
-  -e POSTGRES_PASSWORD=postgres \
-  -e POSTGRES_DB=postgres \
-  -v psql-vol:/var/lib/postgresql/data \
-  -p 5432:5432 postgres:13.8
+# docker run -d \
+#   --name postgresql \
+#   --network psql-net \
+#   -e POSTGRES_USER=postgres \
+#   -e POSTGRES_PASSWORD=postgres \
+#   -e POSTGRES_DB=postgres \
+#   -v psql-vol:/var/lib/postgresql/data \
+#   -p 5432:5432 postgres:13.8
 
-docker run -d \
-  --name pgadmin \
-  --network psql-net \
-  -e PGADMIN_DEFAULT_EMAIL=maria@ctw.com \
-  -e PGADMIN_DEFAULT_PASSWORD=maria \
-  -p 8081:80 \
-  dpage/pgadmin4
-
+# docker run -d \
+#   --name pgadmin \
+#   --network psql-net \
+#   -e PGADMIN_DEFAULT_EMAIL=maria@ctw.com \
+#   -e PGADMIN_DEFAULT_PASSWORD=maria \
+#   -p 8081:80 \
+#   dpage/pgadmin4
 
 # docker run -d --name postgresql-backup --network psql-net -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=postgres -v psql-vol:/var/lib/postgresql/data -p 5433:5432 postgres:13.8
