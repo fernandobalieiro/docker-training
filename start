@@ -10,6 +10,8 @@ docker run -d \
   -p 5432:5432 \
   postgres:16
 
+docker volume create mongo_data
+
 docker run -d \
   --name mongodb \
   -v mongo_data:/data/db \
