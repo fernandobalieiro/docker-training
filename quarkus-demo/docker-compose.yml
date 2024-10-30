@@ -1,16 +1,16 @@
 services:
-  spring-app:
+  quarkus-app:
     build:
       context: .
-      dockerfile: ./src/main/docker/Dockerfile
+      dockerfile: src/main/docker/Dockerfile.jvm
     ports:
-      - "8085:8080"
+      - "8086:8080"
     depends_on:
       - postgres
       - mongodb
 
   postgres:
-    image: postgres:16
+    image: postgres:16-alpine
     container_name: postgres
     environment:
       POSTGRES_USER: test
@@ -20,24 +20,15 @@ services:
       - /tmp/postgres/data2:/var/lib/postgresql/data
       - ./src/main/resources/init.sql:/docker-entrypoint-initdb.d/create_tables.sql
     ports:
-      - "5432:5432"
+      - "5436:5432"
 
   mongodb:
-    image: mongo:8.0.1
+    image: mongo:8.0.3-noble
     container_name: mongodb
     volumes:
       - mongo_data:/data/db
     ports:
       - "27017:27017"
-
-  webserver:
-    build:
-      context: ./webserver
-    container_name: webserver
-    ports:
-      - "9090:8080"
-    volumes:
-      - ./webserver/files:/app
 
 volumes:
   mongo_data:
